@@ -2,45 +2,44 @@
 using System.Collections.Generic;
 using PdfSharp.Pdf;
 using PdfSharp.Pdf.IO;
+using PdfSplitter.Config;
 
 namespace PdfSplitter
 {
   interface IInputFileWrapper
   {
     IEnumerable<List<PdfPage>> GetPagesByBlock();
-    PdfDocument GetPagelessClone();
   }
 
   class InputFileWrapper : IInputFileWrapper
   {
     private readonly AppConfig appConfig;
+    private readonly INumberChunker numberChunker;
     private readonly PdfDocument document;
 
-    public InputFileWrapper(AppConfig appConfig)
+    public int NumberOfPagesInDocument => document.PageCount;
+
+    public InputFileWrapper(AppConfig appConfig, INumberChunker numberChunker)
     {
       this.appConfig = appConfig;
+      this.numberChunker = numberChunker;
       document = PdfReader.Open(appConfig.InputFilePath, PdfDocumentOpenMode.Import);
-    }
-
-    public PdfDocument GetPagelessClone()
-    {
-      PdfDocument clone = (PdfDocument) document.Clone();
-      clone.Pages.PagesArray.Elements.Clear();
-      return clone;
     }
 
     public IEnumerable<List<PdfPage>> GetPagesByBlock()
     {
-      for (int startPage = 0; startPage < document.Pages.Count; startPage = startPage + appConfig.PageBlockSize)
+      var cumulativePageStart = 0;
+
+      foreach (var numberOfPages in numberChunker.ChunkNumber(NumberOfPagesInDocument))
       {
         var pages = new List<PdfPage>();
 
-        // TODO: Explain about Math.Min below(allows for blocks which are smaller than the blockSize)
-        for (int page = startPage; page < Math.Min(document.Pages.Count, startPage + appConfig.PageBlockSize); page++)
+        for (var p = cumulativePageStart; p < cumulativePageStart + numberOfPages; p++)
         {
-          pages.Add(document.Pages[page]);
+          pages.Add(document.Pages[p]);
         }
 
+        cumulativePageStart = cumulativePageStart + numberOfPages;
         yield return pages;
       }
     }

@@ -1,10 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Reflection;
 using System.Threading.Tasks;
 using Ninject;
+using Ninject.Extensions.Factory;
+using PdfSplitter.Config;
 
+[assembly: AssemblyVersion("0.1.0.0")]
 namespace PdfSplitter
 {
   internal class Program
@@ -13,7 +13,7 @@ namespace PdfSplitter
     {
       var kernel = BuildKernel();
 
-      var configReader = kernel.Get<ConfigReader>();
+      var configReader = kernel.Get<IConfigReader>();
       configReader.ReadConfig(inputArguments);
 
       var pdfSplitter = kernel.Get<PdfSplitter>();
@@ -26,8 +26,10 @@ namespace PdfSplitter
       kernel.Bind<IInputFileWrapper>().To<InputFileWrapper>();
       kernel.Bind<IPdfSplitter>().To<PdfSplitter>();
       kernel.Bind<AppConfig>().ToSelf().InSingletonScope();
-      kernel.Bind<ConfigReader>().To<ConfigReader>();
-      kernel.Bind<IFileWriter>().To<FileWriter>();
+      kernel.Bind<IConfigReader>().To<ConfigReader>();
+      kernel.Bind<IOutputFileWrapper>().To<OutputFileWrapper>();
+      kernel.Bind<IOutputFileWrapperFactory>().ToFactory();
+      kernel.Bind<INumberChunker>().To<NumberChunker>();
 
       return kernel;
     }
