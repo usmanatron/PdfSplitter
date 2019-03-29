@@ -26,7 +26,7 @@ namespace PdfSplitter
     public void Split()
     {
       var suffix = 1;
-      CreateOutputFolder();
+      Directory.CreateDirectory(appConfig.OutputFolder);
       var outputFileWriterTasks = new List<Task>();
 
       foreach (var pageSet in inputFileWrapper.GetPagesByBlock())
@@ -38,16 +38,6 @@ namespace PdfSplitter
       }
 
       Task.WaitAll(outputFileWriterTasks.ToArray());
-    }
-
-    private void CreateOutputFolder()
-    {
-      if (Directory.Exists(appConfig.OutputFolder))
-      {
-        Directory.Delete(appConfig.OutputFolder, true);
-      }
-
-      Directory.CreateDirectory(appConfig.OutputFolder);
     }
   }
 }
