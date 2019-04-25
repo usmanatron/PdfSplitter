@@ -1,7 +1,7 @@
 ﻿using System;
 using System.IO;
 
-namespace PdfSplitter.Config
+namespace PdfSplitter.Core.Config
 {
   public class AppConfig
   {

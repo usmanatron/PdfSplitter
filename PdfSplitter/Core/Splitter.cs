@@ -1,43 +1,41 @@
-﻿using System.Collections.Generic;
-using System.IO;
+﻿using System.IO;
 using System.Threading.Tasks;
-using PdfSplitter.Config;
+using PdfSplitter.Core.Config;
 
-namespace PdfSplitter
+namespace PdfSplitter.Core
 {
-  interface IPdfSplitter
+  interface ISplitter
   {
-    void Split();
+    Task<string> Split();
   }
 
-  class PdfSplitter : IPdfSplitter
+  class Splitter : ISplitter
   {
     private readonly AppConfig appConfig;
     private readonly IInputFileWrapper inputFileWrapper;
     private readonly IOutputFileWrapperFactory outputFileFactory;
 
-    public PdfSplitter(AppConfig appConfig, IInputFileWrapper inputFileWrapper, IOutputFileWrapperFactory outputFileFactory)
+    public Splitter(AppConfig appConfig, IInputFileWrapper inputFileWrapper, IOutputFileWrapperFactory outputFileFactory)
     {
       this.appConfig = appConfig;
       this.inputFileWrapper = inputFileWrapper;
       this.outputFileFactory = outputFileFactory;
     }
 
-    public void Split()
+    public async Task<string> Split()
     {
       var suffix = 1;
       Directory.CreateDirectory(appConfig.OutputFolder);
-      var outputFileWriterTasks = new List<Task>();
 
       foreach (var pageSet in inputFileWrapper.GetPagesByBlock())
       {
         var outputFilename = Path.Combine(appConfig.OutputFolder, $"{appConfig.InputFileName}{suffix:0000}.pdf");
         var outputFile = outputFileFactory.CreateOutputFileWrapper(outputFilename);
-        outputFileWriterTasks.Add(outputFile.AddPagesAndClose(pageSet));
+        await outputFile.AddPagesAndClose(pageSet);
         suffix++;
       }
 
-      Task.WaitAll(outputFileWriterTasks.ToArray());
+      return "Done";
     }
   }
 }

@@ -1,4 +1,4 @@
-﻿namespace PdfSplitter
+﻿namespace PdfSplitter.Core
 {
   public interface IOutputFileWrapperFactory
   {

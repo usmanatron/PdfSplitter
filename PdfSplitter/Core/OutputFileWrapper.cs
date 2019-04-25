@@ -3,7 +3,7 @@ using System.IO;
 using System.Threading.Tasks;
 using PdfSharp.Pdf;
 
-namespace PdfSplitter
+namespace PdfSplitter.Core
 {
   interface IOutputFileWrapper
   {
@@ -33,13 +33,6 @@ namespace PdfSplitter
 
     private async Task CloseFile()
     {
-      /* TODO: Initially added as a hack; ensure this is no longer needed
-      if (!Directory.Exists(appConfig.OutputFolder))
-      {
-        Directory.CreateDirectory(appConfig.OutputFolder);
-      }
-      */
-
       using (var stream = new MemoryStream())
       {
         document.Save(stream, false);
