@@ -3,7 +3,6 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:PdfSplitter"
         xmlns:wpfTool="clr-namespace:Xceed.Wpf.Toolkit;assembly=Xceed.Wpf.Toolkit"
         mc:Ignorable="d"
         Title="PDFSplitter" Height="450" Width="400">
@@ -13,7 +12,7 @@
     <Button x:Name="BrowseButton" Content="Browse" HorizontalAlignment="Left" Height ="20" Width="50"
             Margin="200,85,0,0" VerticalAlignment="Top" Click="BrowseButton_Click"/>
     <TextBox HorizontalAlignment="Left" Height="43" Margin="45,120,0,0" TextWrapping="Wrap"   
-               Text="TextBox" VerticalAlignment="Top" Width="300" Name="FileNameTextBox"/>
+               Text="" VerticalAlignment="Top" Width="300" Name="FileNameTextBox"/>
     <Label x:Name="Label_Step2" Content="Step 2: How many pages are in each document?" HorizontalAlignment="Left" Margin="40,180,0,0" VerticalAlignment="Top" Height="30"/>
     <wpfTool:IntegerUpDown Name="PageBlock" Margin="45,220,0,0" Height="20" Width="50" VerticalAlignment="Top" HorizontalAlignment="Left" />
     <Label x:Name="Label_Step3" Content="Step 3: Split!" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="40,250,0,0"/>

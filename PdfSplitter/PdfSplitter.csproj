@@ -63,8 +63,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Config\AppConfig.cs" />
-    <Compile Include="Config\ConfigReader.cs" />
+    <Compile Include="AppConfig.cs" />
     <Compile Include="File\InputFileWrapper.cs" />
     <Compile Include="NumberChunker.cs" />
     <Compile Include="File\OutputFileWrapper.cs" />

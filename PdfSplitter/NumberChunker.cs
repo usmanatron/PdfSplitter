@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using PdfSplitter.Config;
 
 namespace PdfSplitter
 {
@@ -23,24 +22,9 @@ namespace PdfSplitter
 
       while (runningTotal > 0)
       {
-        Console.WriteLine($"Remaining pages: {runningTotal}");
-        var chunkSize = GetChunkSize();
-
-        var chunk = Math.Min(runningTotal, chunkSize);
+        var chunk = Math.Min(runningTotal, appConfig.PageBlockSize);
         yield return chunk;
         runningTotal = runningTotal - chunk;
-      }
-    }
-
-    private int GetChunkSize()
-    {
-      if (appConfig.PageBlockSpecified)
-      {
-        return appConfig.PageBlockSize;
-      }
-      else
-      {
-        throw new NotImplementedException("Interactive coming soon");
       }
     }
   }

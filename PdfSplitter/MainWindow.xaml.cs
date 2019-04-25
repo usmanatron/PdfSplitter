@@ -1,9 +1,5 @@
 ﻿using System.Windows;
 using Microsoft.Win32;
-using Ninject;
-using Ninject.Extensions.Factory;
-using PdfSplitter.File;
-using PdfSplitter.Config;
 
 namespace PdfSplitter
 {
@@ -12,8 +8,13 @@ namespace PdfSplitter
   /// </summary>
   public partial class MainWindow : Window
   {
-    public MainWindow()
+    private AppConfig appConfig;
+    private ISplitter splitter;
+
+    public MainWindow(AppConfig appConfig, ISplitter splitter)
     {
+      this.appConfig = appConfig;
+      this.splitter = splitter;
       InitializeComponent();
       PageBlock.Value = 1;
     }
@@ -37,27 +38,9 @@ namespace PdfSplitter
 
     private async void SplitButton_Click(object sender, RoutedEventArgs e)
     {
-      var kernel = BuildKernel();
-      var configReader = kernel.Get<IConfigReader>();
-      configReader.ReadConfig(FileNameTextBox.Text, PageBlock.Value.Value);
-
-      var pdfSplitter = kernel.Get<ISplitter>();
-      var message = await pdfSplitter.Split();
+      appConfig.Update(FileNameTextBox.Text, PageBlock.Value.Value);
+      var message = await splitter.Split();
       Label_Message.Content = message;
-    }
-
-    private static StandardKernel BuildKernel()
-    {
-      var kernel = new StandardKernel();
-      kernel.Bind<IInputFileWrapper>().To<InputFileWrapper>();
-      kernel.Bind<ISplitter>().To<Splitter>();
-      kernel.Bind<AppConfig>().ToSelf().InSingletonScope();
-      kernel.Bind<IConfigReader>().To<ConfigReader>();
-      kernel.Bind<IOutputFileWrapper>().To<OutputFileWrapper>();
-      kernel.Bind<IOutputFileWrapperFactory>().ToFactory();
-      kernel.Bind<INumberChunker>().To<NumberChunker>();
-
-      return kernel;
     }
   }
 }

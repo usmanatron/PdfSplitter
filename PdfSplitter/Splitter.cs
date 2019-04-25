@@ -1,11 +1,10 @@
 ﻿using System.IO;
 using System.Threading.Tasks;
-using PdfSplitter.Config;
 using PdfSplitter.File;
 
 namespace PdfSplitter
 {
-  interface ISplitter
+  public interface ISplitter
   {
     Task<string> Split();
   }
