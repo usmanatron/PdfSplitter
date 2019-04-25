@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using PdfSplitter.Core.Config;
+using PdfSplitter.Config;
 
-namespace PdfSplitter.Core
+namespace PdfSplitter
 {
   public interface INumberChunker
   {

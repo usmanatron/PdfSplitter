@@ -1,7 +1,7 @@
 ﻿using System;
 using System.IO;
 
-namespace PdfSplitter.Core.Config
+namespace PdfSplitter.Config
 {
   public class AppConfig
   {
@@ -9,7 +9,7 @@ namespace PdfSplitter.Core.Config
     public int PageBlockSize;
     public bool PageBlockSpecified;
 
-    public string WorkingDirectory => Path.GetDirectoryName(InputFilePath);
+    private string WorkingDirectory => Path.GetDirectoryName(InputFilePath);
     public string InputFileName => Path.GetFileNameWithoutExtension(InputFilePath);
 
     public string OutputFolder => Path.Combine(WorkingDirectory, $"output_{DateTime.Now:yyyyMMddHHmmss}");

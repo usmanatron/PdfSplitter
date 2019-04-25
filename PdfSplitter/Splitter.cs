@@ -1,8 +1,9 @@
 ﻿using System.IO;
 using System.Threading.Tasks;
-using PdfSplitter.Core.Config;
+using PdfSplitter.Config;
+using PdfSplitter.File;
 
-namespace PdfSplitter.Core
+namespace PdfSplitter
 {
   interface ISplitter
   {

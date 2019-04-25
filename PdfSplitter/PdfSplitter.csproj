@@ -63,13 +63,13 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Core\Config\AppConfig.cs" />
-    <Compile Include="Core\Config\ConfigReader.cs" />
-    <Compile Include="Core\InputFileWrapper.cs" />
-    <Compile Include="Core\NumberChunker.cs" />
-    <Compile Include="Core\OutputFileWrapper.cs" />
-    <Compile Include="Core\OutputFileWrapperFactory.cs" />
-    <Compile Include="Core\Splitter.cs" />
+    <Compile Include="Config\AppConfig.cs" />
+    <Compile Include="Config\ConfigReader.cs" />
+    <Compile Include="File\InputFileWrapper.cs" />
+    <Compile Include="NumberChunker.cs" />
+    <Compile Include="File\OutputFileWrapper.cs" />
+    <Compile Include="File\OutputFileWrapperFactory.cs" />
+    <Compile Include="Splitter.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>

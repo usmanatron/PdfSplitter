@@ -2,8 +2,8 @@
 using Microsoft.Win32;
 using Ninject;
 using Ninject.Extensions.Factory;
-using PdfSplitter.Core;
-using PdfSplitter.Core.Config;
+using PdfSplitter.File;
+using PdfSplitter.Config;
 
 namespace PdfSplitter
 {

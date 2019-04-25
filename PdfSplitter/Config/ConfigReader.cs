@@ -1,7 +1,7 @@
 ﻿using System;
 using System.IO;
 
-namespace PdfSplitter.Core.Config
+namespace PdfSplitter.Config
 {
   interface IConfigReader
   {

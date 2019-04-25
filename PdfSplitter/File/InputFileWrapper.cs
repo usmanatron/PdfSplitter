@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using PdfSharp.Pdf;
 using PdfSharp.Pdf.IO;
-using PdfSplitter.Core.Config;
+using PdfSplitter.Config;
 
-namespace PdfSplitter.Core
+namespace PdfSplitter.File
 {
   interface IInputFileWrapper
   {

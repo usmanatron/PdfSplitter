@@ -3,7 +3,7 @@ using System.IO;
 using System.Threading.Tasks;
 using PdfSharp.Pdf;
 
-namespace PdfSplitter.Core
+namespace PdfSplitter.File
 {
   interface IOutputFileWrapper
   {
@@ -36,7 +36,7 @@ namespace PdfSplitter.Core
       using (var stream = new MemoryStream())
       {
         document.Save(stream, false);
-        using (var newFile = File.Create(filename))
+        using (var newFile = System.IO.File.Create(filename))
         {
           stream.Seek(0, SeekOrigin.Begin);
           await stream.CopyToAsync(newFile).ConfigureAwait(false);
